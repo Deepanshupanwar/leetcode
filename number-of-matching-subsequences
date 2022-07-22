@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int numMatchingSubseq(string s, vector<string>& words) {
+        int c=0;
+        unordered_map<string, int> M;
+        for(int i=0;i<words.size();i++)
+        {
+             if (M.find(words[i]) == M.end())
+        {
+            M.insert(make_pair(words[i], 1));
+        }
+        else
+        {
+            M[words[i]]++;
+        }
+        }
+     for(auto& it : M)
+     {
+         int k=0,f1=0;
+         string s1=it.first;
+         for(int j=0;j<s1.size();j++)
+         {
+             int f2=0;
+               while(k<s.size())
+                {
+                    if(s[k]==s1[j])
+                    {
+                        f2=1;
+                        k++;
+                        break;
+                    }
+                    k++;
+                }
+                if(f2==0)
+                {
+                    f1=1;
+                    break;
+                }
+         }
+         if(f1==0)
+             c=c+it.second;
+     }
+        return c;
+    }
+};
