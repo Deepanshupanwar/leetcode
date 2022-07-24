@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int l=digits.size()-1;
+        int c=0;
+        while(l>=0)
+        {
+            if(digits[l]<9&&l<digits.size()-1)
+            {
+                digits[l] +=c;
+                break;
+            }
+            else if(digits[l]==9&&l<digits.size()-1)
+            {
+                digits[l]=0;
+                c=1;
+                l--;
+            }
+            else if(digits[l]<9&&l==digits.size()-1)
+            {
+                digits[l] +=1;
+                break;
+            }
+             else if(digits[l]==9&&l==digits.size()-1)
+            {
+                digits[l] =0;
+                c=1;
+                 l--;
+            }
+        }
+        if(digits[0]==0)
+        {
+            vector <int> newd;
+            newd.push_back(1);
+            for(int i=0;i<digits.size();i++)
+            {
+                newd.push_back(digits[i]);
+            }
+            return newd;
+        }
+        return digits;
+    }
+};
