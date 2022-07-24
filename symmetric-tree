@@ -1,0 +1,57 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector <int> l;
+    vector <int> r;
+    void inorderl(int c,TreeNode* root)
+    {
+        if(root==NULL)
+         {l.push_back(c);
+            return ;
+        }
+        inorderl(0,root->left);
+        l.push_back(root->val);
+        inorderl(1,root->right);
+    }
+    void inorderr(int c,TreeNode* root)
+    {
+        
+        if(root==NULL)
+        {r.push_back(c);
+            return ;
+        }
+        inorderr(0,root->right);
+        r.push_back(root->val);
+         inorderr(1,root->left);
+    }
+    bool isSymmetric(TreeNode* root) {
+        if(root->left==NULL&&root->right==NULL)
+            return true;
+        if(root->left!=NULL&&root->right!=NULL)
+         if((root->left->val)!=(root->right->val))
+            return false;
+     inorderl(0,root->left);
+     inorderr(1,root->right);
+        cout<<l.size()<<" "<<r.size()<<endl;
+        if(l.size()!=r.size())
+            return false;
+          for(int i=0;i<l.size();i++)
+              cout<<l[i]<<" "<<r[i]<<endl;
+        for(int i=0;i<l.size();i++)
+        {
+            if(l[i]!=r[i])
+                return false;
+        }
+        return true;
+    }
+};
