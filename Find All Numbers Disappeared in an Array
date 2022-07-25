@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        int n=nums.size();
+        vector<int> newnums;
+        for(int i=0;i<=n;i++)
+        {
+            newnums.push_back(0);
+        }
+         vector <int> newnums1;
+     for(int i=0;i<n;i++)
+     {
+         newnums[nums[i]]=1;
+     }
+    for(int i=1;i<=n;i++)
+    {
+        if(newnums[i]==0)
+        {
+            newnums1.push_back(i);
+        }
+    }
+        return newnums1;
+    }
+};
