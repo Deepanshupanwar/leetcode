@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<int> sortArrayByParityII(vector<int>& nums) {
+      int i=0,k;
+        while(i<nums.size())
+        {
+            if((nums[i]%2==0&&i%2==0)||(nums[i]%2!=0&&i%2!=0))
+            {
+                i++;
+            }
+            else if((nums[i]%2==0&&i%2!=0)&&nums[i+1]%2!=0)
+            {
+                int temp=nums[i];
+                nums[i]=nums[i+1];
+                nums[i+1]=temp;
+                i+=2;
+            }
+            else if((nums[i]%2!=0&&i%2==0)&&nums[i+1]%2==0)
+            {
+                int temp=nums[i];
+                nums[i]=nums[i+1];
+                nums[i+1]=temp;
+                i+=2 ;
+            }
+            else if((nums[i]%2==0&&i%2!=0)&&nums[i+1]%2==0)
+            {
+                int a=nums[i+1];
+                k=i+1;
+                while(a%2==0)
+                {
+                    k++;
+                    a=nums[k];
+                }
+                int temp=nums[i];
+                nums[i]=nums[k];
+                nums[k]=temp;
+                i++;
+            }
+              else if((nums[i]%2!=0&&i%2==0)&&nums[i+1]%2!=0)
+            {
+                int a=nums[i+1];
+                k=i+1;
+                while(a%2!=0)
+                {
+                    k++;
+                    a=nums[k];
+                }
+                int temp=nums[i];
+                nums[i]=nums[k];
+                nums[k]=temp;
+                i++;
+            }
+        }
+               return nums;
+    }
+};
