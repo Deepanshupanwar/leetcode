@@ -1,0 +1,26 @@
+class Solution {
+public:
+    
+    void create(vector <string>& arr,int i,int j,int l,int n,string curr)
+    {
+      if(l==2*n)
+      {
+          arr.push_back(curr);
+          return;
+      }
+       
+       if(i<n&&l<2*n-1)
+       {
+         create(arr,i+1,j,l+1,n,curr+"(");
+       }
+       if(j<i)
+        create(arr,i,j+1,l+1,n,curr+")");
+        return ;
+    }
+    
+    vector<string> generateParenthesis(int n) {
+        vector <string> arr;
+        create(arr,1,0,1,n,"(");
+        return arr;
+    }
+};
