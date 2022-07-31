@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> diStringMatch(string s) {
+        int i=0,d=s.size();
+        vector <int> arr;
+        for(int j=0;j<s.size();j++)
+        {
+            if(s[j]=='I')
+            {
+                arr.push_back(i++);
+            }
+                if(s[j]=='D')
+            {
+                arr.push_back(d--);
+            }
+        }
+        if(s[s.size()-1]=='I')
+        {
+             arr.push_back(i);
+        }
+         if(s[s.size()-1]=='D')
+        {
+             arr.push_back(d);
+        }
+        return arr;
+    }
+};
