@@ -1,0 +1,37 @@
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+      int j=0,k=0; 
+      vector <int> arr;
+        while(j<m&&k<n)
+        {
+            if(nums1[j]<nums2[k])
+            {
+                arr.push_back(nums1[j]);
+                j++;
+            }
+            else
+            {
+                arr.push_back(nums2[k]);
+                k++;
+            }
+        }
+        if(j<m)
+        {
+            while(j<m)
+            {
+                 arr.push_back(nums1[j]);
+                j++;
+            }
+        }
+         if(k<n)
+        {
+            while(k<n)
+            {
+                 arr.push_back(nums2[k]);
+                k++;
+            }
+        }
+        nums1=arr;
+    }
+};
