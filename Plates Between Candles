@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> platesBetweenCandles(string s, vector<vector<int>>& queries) {
+       vector<int> ans;
+        vector <int> arr;
+         for(int i=0;i<s.size();i++)
+        {
+             if(s[i]=='|')
+                 arr.push_back(i);
+        }
+        for(int i=0;i<queries.size();i++)
+        {
+            int l=queries[i][0];
+            int r=queries[i][1];
+            
+            int low2=upper_bound(arr.begin(),arr.end(),r)-arr.begin()-1;
+            int low1=lower_bound(arr.begin(),arr.end(),l)-arr.begin();
+           if(low2>low1)
+            {
+               ans.push_back(arr[low2]-arr[low1]-(low2-low1));
+            }
+            else
+            {
+                 ans.push_back(0);
+            }
+        }
+        return ans;
+    }
+};
