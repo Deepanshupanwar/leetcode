@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int d=0;
+    void count(int n,char c)
+    {
+        if(n==0)
+        {
+            d++;
+            return ;
+        }
+        if(c==' '||c=='a')
+        {
+            count(n-1,'a');
+            count(n-1,'e');
+            count(n-1,'i');
+            count(n-1,'o');
+            count(n-1,'u');
+        }
+        if(c=='e')
+        {
+            count(n-1,'e');
+            count(n-1,'i');
+            count(n-1,'o');
+            count(n-1,'u');
+        }
+        if(c=='i')
+        {
+            count(n-1,'i');
+            count(n-1,'o');
+            count(n-1,'u');
+        }
+        if(c=='o')
+        {
+            count(n-1,'o');
+            count(n-1,'u');
+        }
+        if(c=='u')
+        {
+            count(n-1,'u');
+        }
+        return ;
+    }
+    int countVowelStrings(int n) {
+        
+        count(n,' ');
+        return d;
+    }
+};
