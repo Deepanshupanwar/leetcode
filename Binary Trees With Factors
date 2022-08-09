@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int numFactoredBinaryTrees(vector<int>& arr) {
+        int mod=1e9+7;
+        vector <long long> dp(arr.size(),1);
+        sort(arr.begin(),arr.end());
+        map <long,long> mp;
+        for(int i=0;i<arr.size();i++)
+        {
+            mp.insert({arr[i],i});
+        }
+        for(int i=0;i<arr.size();i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+                if(arr[i]%arr[j]==0)
+                {
+                    int right=arr[i]/arr[j];
+                    if(mp.find(right)!=mp.end())
+                    {
+                        dp[i] =(dp[i] + dp[j] * dp[mp[right]]) % mod;
+                    }
+                }
+            }
+        }
+        long long ans=0;
+        for(int i=0;i<arr.size();i++)
+        {
+            ans+=dp[i];
+        }
+        return ans%mod; 
+    }
+};
