@@ -1,0 +1,40 @@
+class Solution {
+public:
+    void subString(string s, int n,vector <string>& arr)
+    {
+        for (int i = 0; i < n; i++)
+        for (int len = 1; len <= n - i; len++)
+          arr.push_back(s.substr(i, len));
+    }
+    int countSubstrings(string s, string t) {
+        vector <string> arrs;
+        vector <string> arrt;
+        subString(s,s.size(),arrs);
+        subString(t,t.size(),arrt);
+        int ans=0;
+        for(int i=0;i<arrs.size();i++)
+        {
+            for(int j=0;j<arrt.size();j++)
+            {
+                int diff=0;
+                if(arrs[i].size()==arrt[j].size())
+                {
+                    for(int k=0;k<arrs[i].size();k++)
+                    {
+                        if(arrs[i][k]!=arrt[j][k])
+                        {
+                            diff++;
+                        }
+                        if(diff>1)
+                            break;
+                    }
+                }
+                if(diff==1)
+                {
+                    ans+=1;
+                }
+            }
+        }
+        return ans;
+    }
+};
