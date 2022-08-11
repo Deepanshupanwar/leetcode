@@ -1,0 +1,53 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    map <int,int> mp;
+  static  bool sortByVal(const pair<int,int> &a, 
+               const pair<int,int> &b) 
+    { 
+    return (a.second > b.second); 
+    } 
+    void help(TreeNode *root)
+    {
+        if(root==NULL)
+            return ;
+        help(root->left);
+          if(mp.find(root->val)==mp.end())
+          {
+              mp.insert({root->val,1});
+          }
+          else{
+              mp[root->val]++;
+          }
+        help(root->right);
+    }
+    vector<int> findMode(TreeNode* root) {
+        help(root);
+       vector<pair<int, int>> vec;
+        vector<int>ans;
+        map<int, int> :: iterator itr;
+         for(itr=mp.begin();itr!=mp.end();itr++)
+         {
+             vec.push_back(make_pair(itr->first, itr->second));
+         }
+         sort(vec.begin(), vec.end(), sortByVal);
+        int max=vec[0].second;
+        for (int i = 0; i < vec.size(); i++)
+        {
+            if(max!=vec[i].second)
+                break;
+            ans.push_back(vec[i].first);
+        }
+        return ans;
+    }
+};
