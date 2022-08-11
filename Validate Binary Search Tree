@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool help(TreeNode* root,TreeNode* low,TreeNode* high)
+    {
+        if(root==NULL)
+            return true;
+        if((low!=NULL&&root->val>=low->val)||(high!=NULL&&root->val<=high->val))
+        {
+            return false;
+        }
+        return help(root->left,root,high)&&help(root->right,low,root);
+    }
+    bool isValidBST(TreeNode* root) {
+     return help(root,NULL,NULL);
+    }
+};
