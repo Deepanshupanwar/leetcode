@@ -1,0 +1,23 @@
+class Solution {
+public:
+    char repeatedCharacter(string s) {
+       map<char,int> m;
+        char ans;
+        for(int i=0;i<s.size();i++)
+        {
+            if(m.find(s[i])==m.end())
+            {
+                m.insert({s[i],1});
+            }
+            else{
+                m[s[i]]++;
+            }
+            if(m[s[i]]==2)
+            {
+                ans=s[i];
+                break;
+            }
+        }
+        return ans;
+    }
+};
