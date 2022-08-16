@@ -1,0 +1,38 @@
+class Solution {
+public:
+   static bool cmp(const pair<char,int> &a,
+              const pair<char
+             ,int> &b)
+    {
+    return (a.second > b.second);
+    }
+    string frequencySort(string s) {
+        map <char,int> m;
+        for(int i=0;i<s.size();i++)
+        {
+            if(m.find(s[i])==m.end())
+            {
+                m.insert({s[i],1});
+            }
+            else{
+                m[s[i]]++;
+            }
+        }
+        string ans;
+        vector <pair <char,int>> arr;
+        for(auto i : m)
+        {
+            arr.push_back({i.first,i.second});
+        }
+        sort(arr.begin(),arr.end(),cmp);
+        for(int i=0;i<arr.size();i++)
+        {
+          while(arr[i].second!=0)
+          {
+              ans +=arr[i].first;
+              arr[i].second--;
+          }
+        }
+        return ans;
+    }
+};
