@@ -1,0 +1,36 @@
+class Solution {
+public:
+    static bool cmp(pair<int,int>& a,pair<int, int>& b)
+    {
+    return a.second > b.second;
+    }
+    int minSetSize(vector<int>& arr) {
+        map <int,int> m;
+        for(int i=0;i<arr.size();i++)
+        {
+            if(m.find(arr[i])==m.end())
+            {
+                m.insert({arr[i],1});
+            }
+            else
+            {
+                m[arr[i]]++;
+            }
+        }
+        vector<pair<int,int>>freq;
+        for(auto i:m)
+        {
+            freq.push_back(i);
+        }
+        sort(freq.begin(),freq.end(),cmp);
+        int n=arr.size();
+        int ans=0,i=0;
+        while(n>arr.size()/2)
+        {
+          ans++;
+          n-=freq[i].second;
+          i++;
+        }
+        return ans;
+    }
+};
