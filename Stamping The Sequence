@@ -1,0 +1,46 @@
+class Solution {
+public:
+    bool ispossible(string stamp,string target,int pos)
+    {
+        for(int i=0;i<stamp.size();i++)
+        {
+            if(target[i+pos]!='?'&&stamp[i]!=target[i+pos])
+                return false;
+        }
+        return true;
+    }
+    vector<int> movesToStamp(string stamp, string target) {
+        int count =0;
+        vector <bool> vis(target.size());
+        vector <int> ans;
+        while(count!=target.size())
+        {
+            bool didchange=false;
+            for(int i=0;i<=target.size()-stamp.size();i++)
+            {
+                if(vis[i]==false&&ispossible(stamp,target,i))
+                {
+                   for(int j=0;j<stamp.size();j++)
+                   {
+                       if(target[j+i]!='?')
+                       {
+                          target[j+i]='?';
+                          count ++;
+                       }
+                   }
+                    vis[i]=true;
+                    didchange=true;
+                    ans.push_back(i);
+                    if(count==target.size())
+                        break;
+                }
+            }
+            if(!didchange)
+            {
+                return {};
+            }
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
