@@ -1,0 +1,39 @@
+class Solution {
+public:
+    void dfs(int start,vector<vector<int>>& graph,vector<bool>& vis)
+    {
+        vis[start]=true;
+        for(int i=0;i<graph[start].size();i++)
+        {
+            if(!vis[graph[start][i]])
+            {
+                dfs(graph[start][i],graph,vis);
+            }
+        }
+    }
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int n=isConnected.size();
+        vector <vector<int>> graph(n+1);
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(isConnected[i][j]==1&&i!=j)
+                {
+                    graph[i+1].push_back(j+1);
+                }
+            }
+        }
+        vector <bool> vis(n,false);
+        int ans=0;
+        for(int i=1;i<=n;i++)
+        {
+            if(vis[i]==false)
+            {
+                ans++;
+                dfs(i,graph,vis);
+            }
+        }
+        return ans;
+    }
+};
