@@ -1,0 +1,38 @@
+class Solution {
+public:
+    
+    int find(vector<int>& set,int x)
+    {
+        if(set[x]<0)
+        return x;
+        
+      return find(set,set[x]);
+    }
+    
+    int uni(int u,int v,vector<int>& set)
+    {
+        int u1=find(set,u),v1=find(set,v);
+        if(u1==v1)
+        {
+            return 1;
+        }
+        if(set[u1]==-1&&set[v1]==-1)
+        {
+            set[v1]=u1;
+        }
+        return 0;
+    }
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        vector<int> ans;
+        int n=edges.size();
+        vector <int> set(n+1,-1);
+        for(int i=0;i<n;i++)
+        {
+            if(uni(edges[i][0],edges[i][1],set))
+            {
+                ans=edges[i];
+            }
+        }
+        return ans;
+    }
+};
