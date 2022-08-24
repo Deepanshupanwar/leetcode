@@ -1,0 +1,63 @@
+class Solution {
+public:
+     int find(vector<int>& set,int x)
+    {
+        if(set[x]<0)
+        return x;
+        
+      return find(set,set[x]);
+    }
+    
+    int uni(int u,int v,vector<int>& set)
+    {
+        int u1=find(set,u),v1=find(set,v);
+        if(u1==v1)
+        {
+            return 1;
+        }
+        if(set[u1]==-1&&set[v1]==-1)
+        {
+            set[v1]=u1;
+        }
+        return 0;
+    }
+    
+    int regionsBySlashes(vector<string>& grid) {
+        int n=grid.size();
+        int dots=n+1;
+        int ans=1;
+        vector <int> set(dots*dots,-1);
+        for(int i=0;i<dots;i++)
+        {
+            for(int j=0;j<dots;j++)
+            {
+                 if(i == 0 || j == 0 || i == dots - 1 || j == dots - 1){
+                     int v=i*dots+j;
+                     if(v!=0)
+                         uni(0,v,set);
+                 }
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]=='/')
+                {
+                    int v=(i+1)*dots+j;
+                    int u= i*dots+j+1;
+                    if(uni(u,v,set))
+                        ans++;
+                }
+                 if(grid[i][j]=='\\')
+                {
+                    int v=(i+1)*dots+j+1;
+                    int u= i*dots+j;
+                    if(uni(u,v,set))
+                        ans++;
+                }
+            }
+        }
+        return ans;
+    }
+};
