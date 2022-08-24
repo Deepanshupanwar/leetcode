@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int ans=0;
+    vector <int> arr1[50001],arr2[50001];
+    void dfs(int start,vector<int>& vis,int n)
+    {
+        vis[start]=1;
+        for(int i=0;i<arr1[start].size();i++)
+        {
+            if(vis[arr1[start][i]]==0)
+            {
+                ans++;
+                dfs(arr1[start][i],vis,n);
+            }
+        }
+        for(int i=0;i<arr2[start].size();i++)
+        {
+            if(vis[arr2[start][i]]==0)
+            {
+                dfs(arr2[start][i],vis,n);
+            }
+        }
+    }
+    int minReorder(int n, vector<vector<int>>& connections) {
+        for(int i=0;i<n-1;i++)
+        {
+            arr1[connections[i][0]].push_back(connections[i][1]);
+            arr2[connections[i][1]].push_back(connections[i][0]);
+        }
+        vector<int> vis(n,0);
+        dfs(0,vis,n);
+        return ans;
+    }
+};
