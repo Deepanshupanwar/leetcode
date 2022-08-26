@@ -1,0 +1,31 @@
+class Solution {
+public:
+    long long maximumImportance(int n, vector<vector<int>>& roads) {
+        vector <int> connection(n,0);//number of connections of a node
+        for(int i=0;i<roads.size();i++)
+        {
+            connection[roads[i][0]]++;
+            connection[roads[i][1]]++;
+        }
+        priority_queue<pair<int,int>> pq ;//create a priortiy queue to pop an node with most connections first;
+        for(int i=0;i<n;i++)
+        {
+            pq.push({connection[i],i});
+        }
+        vector<int>imp(n);
+        int j=n;
+        while(!pq.empty())//assign node with highest priority with highest importance
+        {
+            int node=pq.top().second;
+            pq.pop();
+            imp[node]=j;
+            j--;
+        }
+        long long ans=0;
+        for(int i=0;i<roads.size();i++)
+        {
+            ans+=imp[roads[i][0]]+imp[roads[i][1]];
+        }
+        return ans;
+    }
+};
