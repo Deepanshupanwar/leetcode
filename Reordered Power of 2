@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> counting(int n)
+    {
+        vector <int> arr(10,0);
+        while(n>0)
+        {
+            arr[n%10]++;
+            n/=10;
+        }
+        return arr;
+    }
+    bool reorderedPowerOf2(int n) {
+         vector <int> num=counting(n);
+         for(int i=0;i<31;i++)
+         {
+             if(num==counting(1<<i))
+             {
+                return true;
+             }
+         }
+        return false;
+    }    
+};
