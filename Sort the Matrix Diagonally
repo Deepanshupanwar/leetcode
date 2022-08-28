@@ -1,0 +1,53 @@
+class Solution {
+public:
+    vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
+        
+        int row=mat[0].size();
+        int col=mat.size(); 
+        if(col==1||row==1)
+            return mat;
+        for(int i=0;i<col;i++)
+        {
+            vector <int> arr;
+            int j=i;
+            int k=0;
+            while(j<col&&k<row)
+            {
+              arr.push_back(mat[j][k]);
+                j++;
+                k++;
+            }
+            sort(arr.begin(),arr.end());
+            j=i;
+            k=0;
+            while(j<col&&k<row)
+            {
+              mat[j][k]=arr[k];
+                j++;
+                k++;
+            }
+        }
+        for(int i=1;i<row;i++)
+        {
+           vector <int> arr;
+            int j=i;
+            int k=0;
+            while(k<col&&j<row)
+            {
+              arr.push_back(mat[k][j]);
+                j++;
+                k++;
+            }
+            sort(arr.begin(),arr.end());
+            j=i;
+            k=0;
+            while(k<col&&j<row)
+            {
+              mat[k][j]=arr[k];
+                j++;
+                k++;
+            } 
+        }
+        return mat;
+    }
+};
