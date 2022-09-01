@@ -1,0 +1,78 @@
+class Solution {
+public:
+    void dfs(string start,string end,bool &found,map<string,int> &vis,map<string,vector<string>> & graph,map<string,double> m,double &val)
+    {
+        vis[start]=1;
+        if(found)
+            return ;
+        for(auto curr: graph[start])
+        {
+            if(vis.find(curr)==vis.end())
+            {
+                val *=m[start+"->"+curr];
+                if(curr==end)
+                {
+                    found=true;
+                    return ;
+                }
+                dfs(curr,end,found,vis,graph,m,val);
+                if(found)
+                    return ;
+                else
+                {
+                    val /=m[start+"->"+curr];
+                }
+               
+            }
+        }
+    }
+    
+    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
+        vector <double> ans;
+        map <string,double> m;
+        map <string ,vector<string>> graph;
+        for(int i=0;i<equations.size();i++)
+        {
+            string u=equations[i][0];
+            string v=equations[i][1];
+            m[u+"->"+v]=values[i];
+            m[v+"->"+u]=1/values[i];
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+        }
+        for(int i=0;i<queries.size();i++)
+        {
+           string u= queries[i][0];
+           string v=queries[i][1];
+            if(graph.find(u)==graph.end()||graph.find(v)==graph.end())
+            {
+                ans.push_back(-1);
+            }
+            else
+            {
+                double val=1;
+                map<string,int> vis;
+                bool found=false;
+                if(u==v)
+                {
+                    found=true;
+                }
+                else
+                {
+                    dfs(u,v,found,vis,graph,m,val);
+                }
+                if(found)
+                {
+                    ans.push_back(val);
+                }
+                else
+                {
+                    ans.push_back(-1);
+                }
+                
+            }
+        }
+        return ans;
+        
+    }
+};
