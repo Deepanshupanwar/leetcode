@@ -1,0 +1,50 @@
+class Solution {
+public:
+    void dfs(vector<vector<int>>& grid,int i,int j,vector<vector<int>>& vis,int m,int n,bool &found)
+    {
+        vis[i][j]=1;
+        if(i==0||j==n-1||i==m-1||j==0)
+            found = false;
+        if(j-1>=0&&vis[i][j-1]==0&&grid[i][j-1]==0)
+        {
+           dfs(grid,i,j-1,vis,m,n,found);
+        }
+        if(j+1<n&&vis[i][j+1]==0&&grid[i][j+1]==0)
+        {
+            dfs(grid,i,j+1,vis,m,n,found);
+        }
+        if(i-1>=0&&vis[i-1][j]==0&&grid[i-1][j]==0)
+        {
+            dfs(grid,i-1,j,vis,m,n,found);
+        }
+        if(i+1<m&&vis[i+1][j]==0&&grid[i+1][j]==0)
+        {
+            dfs(grid,i+1,j,vis,m,n,found);
+        }
+        if(found==false)
+            return ;
+    }
+    int closedIsland(vector<vector<int>>& grid) {
+        int ans=0;
+        int m=grid.size();
+        int n=grid[0].size();
+        vector<vector<int>> vis(m,vector<int>(n,0));
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                bool found=true;
+                if(vis[i][j]==0&&grid[i][j]==0)
+                {
+                  dfs(grid,i,j,vis,m,n,found);
+                  if(found)
+                  {
+                      ans++;
+                  }  
+                }
+
+            }
+        }
+        return ans;
+    }
+};
