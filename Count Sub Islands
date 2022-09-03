@@ -1,0 +1,50 @@
+class Solution {
+public:
+     void dfs(vector<vector<int>>& grid2,int i,int j,vector<vector<int>>& vis,int m,int n,bool &found,vector<vector<int>>& grid1)
+    {
+        vis[i][j]=1;
+        if(grid1[i][j]==0)
+            found = false;
+        if(j-1>=0&&vis[i][j-1]==0&&grid2[i][j-1]==1)
+        {
+           dfs(grid2,i,j-1,vis,m,n,found,grid1);
+        }
+        if(j+1<n&&vis[i][j+1]==0&&grid2[i][j+1]==1)
+        {
+            dfs(grid2,i,j+1,vis,m,n,found,grid1);
+        }
+        if(i-1>=0&&vis[i-1][j]==0&&grid2[i-1][j]==1)
+        {
+            dfs(grid2,i-1,j,vis,m,n,found,grid1);
+        }
+        if(i+1<m&&vis[i+1][j]==0&&grid2[i+1][j]==1)
+        {
+            dfs(grid2,i+1,j,vis,m,n,found,grid1);
+        }
+        if(found==false)
+            return ;
+    }
+    int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
+        int ans=0;
+        int m=grid1.size();
+        int n=grid1[0].size();
+        vector<vector<int>> vis(m,vector<int>(n,0));
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                bool found=true;
+                if(vis[i][j]==0&&grid2[i][j]==1)
+                {
+                  dfs(grid2,i,j,vis,m,n,found,grid1);
+                  if(found)
+                  {
+                      ans++;
+                  }  
+                }
+
+            }
+        }
+        return ans;
+    }
+};
