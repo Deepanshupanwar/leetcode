@@ -1,0 +1,36 @@
+class Solution {
+public:
+    void dfs(int l,int n,int k,vector<string> &anss,string s)
+    {
+        if(l==n-1)
+        {
+            anss.push_back(s);
+            return ;
+        }
+        for(int i=0;i<10;i++)
+        {
+            int curr=int(s[l])-48;
+            if(curr-i==k)
+            {
+                dfs(l+1,n,k,anss,s+to_string(i));
+            }
+            else if(i-curr==k)
+            {
+                dfs(l+1,n,k,anss,s+to_string(i));
+            }
+        }
+    }
+    vector<int> numsSameConsecDiff(int n, int k) {
+        vector <int> ans;
+        vector <string> anss;
+        for(int i=1;i<10;i++)
+        {
+            dfs(0,n,k,anss,to_string(i));
+        }
+        for(int i=0;i<anss.size();i++)
+        {
+            ans.push_back(stoi(anss[i]));
+        }
+        return ans;
+    }
+};
