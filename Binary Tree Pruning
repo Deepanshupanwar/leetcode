@@ -1,0 +1,51 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void help(TreeNode *root,bool &found)
+    {
+        if(root==NULL)
+            return ;
+        if(root->val==1)
+        {
+            found=true;
+            return ;
+        }
+        help(root->left,found);
+        if(found)
+            return ;
+        help(root->right,found);
+    }
+    void dfs(TreeNode** root)
+    {
+        if(*root==NULL)
+            return ;
+        if((*root)->val==0)
+        {
+            bool found=false;
+            help(*root,found);
+            if(!found)
+            {
+                *root=NULL;
+            }
+                
+        }
+        if(*root==NULL)
+            return ;
+        dfs(&(*root)->left);
+        dfs(&(*root)->right);
+    }
+    TreeNode* pruneTree(TreeNode* root) {
+        dfs(&root);
+        return root;
+    }
+};
