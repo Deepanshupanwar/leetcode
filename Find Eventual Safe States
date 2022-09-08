@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool dfs(vector<vector<int>>& graph,int start,vector<int> &vis)
+    {
+        if(vis[start]>0)
+            return vis[start]==2;
+        vis[start]=1;
+        for(int i=0;i<graph[start].size();i++)
+        {
+            if(vis[graph[start][i]]==2)
+            {
+                continue ;
+            }
+            if(vis[graph[start][i]]==1||!dfs(graph,graph[start][i],vis))
+                return false;
+          
+        }
+        vis[start]=2;
+        return true;
+    }
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        int n=graph.size();
+        vector<int> temp(n,0);
+         vector<int> vis(n,0);
+        vector<int> ans;
+        for(int i=0;i<n;i++)
+        {
+              if(dfs(graph,i,vis))
+              {
+                   ans.push_back(i);  
+              }
+        }
+        return ans;
+    }
+};
