@@ -1,0 +1,30 @@
+class Solution {
+public:
+  /*  int help(int ind,int t,vector<int>& prices,int n,int k,vector <vector<int>>&dp)
+    {
+        if(ind==n||t==2*k)
+            return 0;
+        if(dp[ind][t]!=-1)
+            return dp[ind][t];
+        if(t%2==0)//buy or skip
+            return dp[ind][t]=max(-prices[ind]+help(ind+1,t+1,prices,n,k,dp),0+help(
+            ind+1,t,prices,n,k,dp));
+        return dp[ind][t]=max(prices[ind]+help(ind+1,t+1,prices,n,k,dp),0+help(
+            ind+1,t,prices,n,k,dp));//sell or skip
+    }  */
+    int maxProfit(int k, vector<int>& prices) {
+        int n=prices.size();
+        vector <vector<int>> dp(n+1,vector<int>(2*k+1,0));
+        for(int ind=n-1;ind>=0;ind--)
+        {
+            for(int t=2*k-1;t>=0;t--)
+            {
+                if(t%2==0)//buy or skip
+                dp[ind][t]=max(-prices[ind]+dp[ind+1][t+1],dp[ind+1][t]);
+                else 
+                    dp[ind][t]=max(prices[ind]+dp[ind+1][t+1],dp[ind+1][t]);//sell or skip
+            }
+        }
+        return dp[0][0];
+    }
+};
