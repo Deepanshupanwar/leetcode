@@ -1,0 +1,31 @@
+class Solution {
+public:
+    static bool comp(pair<int,int>& a,pair<int,int>& b)
+    {
+        if(a.first==b.first)
+            return a.second>b.second;
+        return a.first>b.first;
+    }
+    int maxPerformance(int n, vector<int>& speed, vector<int>& efficiency, int k) {
+        vector <pair<int,int>> eng;
+        for(int i=0;i<n;i++)
+        {
+            eng.push_back({efficiency[i],speed[i]});
+        }
+        sort(eng.begin(),eng.end(),comp);
+        priority_queue<int, vector<int>, greater<int> > pq;
+        long long int sum=0,ans=0;
+        for(int i=0;i<n;i++)
+        {
+            sum+=eng[i].second;
+            pq.push(eng[i].second);
+            if(pq.size()>k)
+            {
+                sum-=pq.top();
+                pq.pop();
+            }
+            ans=max(ans,sum*eng[i].first);
+        }
+        return ans%1000000007;
+    }
+};
