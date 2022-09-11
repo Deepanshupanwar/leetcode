@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int bfs(queue<pair<int,int>>& q,int target,vector<vector<int>>& vis,vector<vector<int>>& graph)
+    {
+        int ans=0;
+        while(!q.empty())
+        {
+            int size=q.size();
+            ans++;
+            while(size>0)
+            {
+                pair<int,int> p=q.front();
+                int node=p.first;
+                int curr=p.second;
+                q.pop();
+                for(int i=0;i<graph[node].size();i++)
+                {
+                    int next=(curr|1<<graph[node][i]);
+                    if(next==target)
+                        return ans;
+                    if(vis[graph[node][i]][next]==0)
+                    {
+                        vis[graph[node][i]][next]=1;
+                        q.push({graph[node][i],next});
+                    }
+                }
+                size--;
+            }
+        }
+        return ans;
+    }
+    int shortestPathLength(vector<vector<int>>& graph) {
+        if(graph.size()==1)
+            return 0;
+        int ans=INT_MAX;
+        int n=graph.size();
+        int target=(1<<n)-1;
+        for(int i=0;i<n;i++)
+        {
+            queue<pair<int,int>> q;
+            q.push({i,1<<i});
+            vector<vector<int>> vis(n,vector<int>(target,0));
+            vis[i][1<<i]=1;
+            ans=min(ans,bfs(q,target,vis,graph));
+        }
+        return ans;
+    }
+};
