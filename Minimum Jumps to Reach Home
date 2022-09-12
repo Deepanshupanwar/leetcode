@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
+        if(x==0)
+            return 0;
+        map<int,int> m;
+        for(int i=0;i<forbidden.size();i++)
+        {
+            m[forbidden[i]]=3;
+        }
+        queue <pair<int,int>> q;
+        q.push({0,0});
+        m[0]=1;
+        int ans=0;
+        while(!q.empty())
+        {
+            int size=q.size();
+            while(size>0)
+            {
+                pair<int,int> p=q.front();
+                int ind=p.first;
+                int jump=p.second;
+                q.pop();
+                if(ind==x)
+                    return ans;
+                if(ind+a<=10000&&m[ind+a]<2)
+                {
+                    m[ind+a]=2;
+                    q.push({ind+a,0});
+                }
+                if(ind-b>0&&m[ind-b]==0&&jump==0)
+                {
+                    m[ind-b]=1;
+                    q.push({ind-b,1});
+                }
+                size--;
+            }
+            ans++;
+        }
+        return -1;
+    }
+};
