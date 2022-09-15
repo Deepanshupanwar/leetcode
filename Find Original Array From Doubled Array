@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<int> findOriginalArray(vector<int>& changed) {
+       sort(changed.begin(),changed.end());
+        map <int,int> m;
+        int n=changed.size();
+        if(n%2!=0)
+            return {};
+        for(int i=0;i<n;i++)
+        {
+            if(m.find(changed[i])==m.end())
+                m[changed[i]]=1;
+            else
+                m[changed[i]]++;
+        }
+        vector <int> ans;
+        for(int i=0;i<n;i++)
+        {
+            if(m[changed[i]]>0)
+            {
+                m[changed[i]]--;
+                if(m.find(changed[i]*2)!=m.end())
+                {
+                    if(m[changed[i]*2]>0)
+                    {
+                        m[changed[i]*2]--;
+                        cout<<changed[i]<<" ";
+                        ans.push_back(changed[i]);
+                    }
+                }
+                else
+                {
+                    return {};
+                }
+            }
+        }
+        if(ans.size()==n/2)
+        return ans;
+        else
+        return {};
+    }
+};
