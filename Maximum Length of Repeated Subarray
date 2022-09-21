@@ -1,26 +1,26 @@
 class Solution {
 public:
+    int ans=0;
+   int helper(vector<int>& A, vector<int>& B,int i,int j,vector<vector<int>>& dp)
+   {
+       if (i>=A.size()||j>=B.size())
+           return  0;
+       if(dp[i][j]>-1)
+           return dp[i][j];
+       int curr=0;
+       if(A[i]==B[j])
+       {
+          curr=1+helper(A,B,i+1,j+1,dp);
+       }
+        helper(A,B,i+1,j,dp);
+        helper(A,B,i,j+1,dp);
+        ans=max(ans,curr);
+       return dp[i][j]=curr;
+       
+   }
    int findLength(vector<int>& A, vector<int>& B) {
-        
-        if (A.size() < B.size()) swap(A, B);
-        int M = A.size(), N = B.size();
-        vector<int> dp(N + 1, 0);
-        int ans = 0;
-        
-        for(int i = 0; i < M; i++) {
-            for(int j = N - 1; j >= 0; j--) {
-                
-                if (A[i] == B[j]) {
-                    dp[j + 1] = 1 + dp[j];
-                } else {
-                    dp[j + 1] = 0;
-                }
-                              
-                ans = max(ans, dp[j + 1]);
-            }
-            
-        }
-        
-        return ans;
+       vector<vector<int>> dp(1001,vector<int>(1001,-1));
+       helper(A,B,0,0,dp);
+       return ans;
     }
 };
