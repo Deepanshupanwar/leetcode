@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int find(int x,vector<int> &set)
+    {
+        if(set[x]==x)
+            return x;
+        return find(set[x],set);
+    }
+    bool equationsPossible(vector<string>& equations) {
+        
+        vector <int> set(27,-1);
+        for(int i=0;i<27;i++)
+        {
+            set[i]=i;
+        }
+        int n=equations.size();
+        for(int i=0;i<n;i++)
+        {
+            if(equations[i][1]=='=')
+            {
+                int u=equations[i][0]-'a';
+                int v=equations[i][3]-'a';
+                set[find(v,set)]=find(u,set);
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(equations[i][1]=='!')
+            {
+                int u=equations[i][0]-'a';
+                int v=equations[i][3]-'a';
+                int u1=find(u,set);
+                int v1=find(v,set);
+                if(u1==v1)
+                {
+                    if(u1!=-1)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+};
