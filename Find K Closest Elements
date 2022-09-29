@@ -1,0 +1,29 @@
+class Solution {
+public:
+    static bool comp(pair<int,int> a,pair<int,int> b)
+    {
+        if(a.second==b.second)
+            return a.first<b.first;
+        return a.second<b.second;
+    }
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        vector<pair<int,int>> q;
+        for(int i=0;i<arr.size();i++)
+        {
+            q.push_back({arr[i],abs(arr[i]-x)});
+        }
+        sort(q.begin(),q.end(),comp);
+        vector <int> ans;
+        int i=0;
+        while(k)
+        {
+            pair<int,int> p=q[i];
+            int j=p.first;
+            ans.push_back(j);
+            k--;
+            i++;
+        }
+        sort(ans.begin(),ans.end());
+        return ans;
+    }
+};
