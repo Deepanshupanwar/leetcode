@@ -1,0 +1,46 @@
+class Solution {
+public:
+    static bool comp(pair<int,int> a,pair<int,int> b)
+    {
+        if(a.first==b.first)
+            return a.second<b.second;
+        return a.first<b.first;
+    }
+    vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {
+        vector<pair<int,int>> arr;
+        int n=buildings.size();
+        for(int i=0;i<n;i++)
+        {
+            arr.push_back({buildings[i][0],-buildings[i][2]});
+            arr.push_back({buildings[i][1],buildings[i][2]});
+        }
+        sort(arr.begin(),arr.end(),comp);
+        vector<vector<int>> ans;
+        multiset<int> pq{0};
+        int curr=0;
+        for(int i=0;i<arr.size();i++)
+        {
+            int x=arr[i].first;
+            int h=arr[i].second;
+            if(h<0)
+            {
+                pq.insert(-h);
+            }
+            else
+            {
+              pq.erase(pq.find(h));
+
+            }
+            auto pqTop = *pq.rbegin();
+            if(curr!=pqTop)
+            {
+                vector<int> temp;
+                temp.push_back(x);
+                temp.push_back(pqTop);
+                curr=pqTop;
+                ans.push_back(temp);
+            }
+        }
+        return ans;
+    }
+};
