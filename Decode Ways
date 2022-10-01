@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int help(string s,int i,vector<int>&dp,map<string,char>m)
+    {
+        if(i>=s.size())
+            return 1;
+        if(dp[i]!=-1)
+            return dp[i];
+        string s1="";
+            s1+=s[i];
+        int ans=0;
+        if(s1=="0")
+            return 0;
+        else
+        {
+        if(m.find(s1)!=m.end())
+             ans=help(s,i+1,dp,m);
+        if(i+1<s.size())
+        {
+            s1+=s[i+1];
+            if(m.find(s1)!=m.end())
+            ans+=help(s,i+2,dp,m);
+        }
+        }
+        return dp[i]=ans;
+    }
+    
+    int numDecodings(string s) {
+        map<string,char> m;
+        char a='A';
+        for(int i=1;i<=26;i++)
+        {
+            m[to_string(i)]=a;
+            a++;
+        }
+        vector<int> dp(s.size(),-1);
+        return help(s,0,dp,m);
+    }
+};
