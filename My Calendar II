@@ -1,0 +1,33 @@
+class MyCalendarTwo {
+public:
+    vector<pair<int,int>> arr;
+    vector<pair<int,int>> arr2;
+    MyCalendarTwo() {
+        
+    }
+    
+    bool book(int start, int end) {
+        for(int i=0;i<arr2.size();i++)
+        {
+             if(arr2[i].first<end&&arr2[i].second>start)
+             {
+                 return false;
+             }
+        }
+        for(int i=0;i<arr.size();i++)
+        {
+            if(arr[i].first<end&&arr[i].second>start)
+             {
+                 arr2.push_back({max(start,arr[i].first),min(end,arr[i].second)});
+             }
+        }
+        arr.push_back({start,end});
+        return true;
+    }
+};
+
+/**
+ * Your MyCalendarTwo object will be instantiated and called as such:
+ * MyCalendarTwo* obj = new MyCalendarTwo();
+ * bool param_1 = obj->book(start,end);
+ */
