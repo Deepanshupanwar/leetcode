@@ -1,0 +1,25 @@
+class MyCalendarThree {
+public:
+    map<int, int> m;
+    MyCalendarThree() {
+        
+    }
+    
+    int book(int start, int end) {
+       int curr=0,maxi=0;
+        m[start]++;
+        m[end]--;
+        for(auto it: m)
+        {
+            curr+= it.second;
+            maxi=max(curr,maxi);
+        }
+        return maxi;
+    }
+};
+
+/**
+ * Your MyCalendarThree object will be instantiated and called as such:
+ * MyCalendarThree* obj = new MyCalendarThree();
+ * int param_1 = obj->book(start,end);
+ */
