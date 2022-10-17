@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool checkIfPangram(string sentence) 
+    {
+        int n=sentence.size();
+        if(n<25)
+            return false;
+         set<int> s1;
+         char ch='a';
+         while(ch<='z')
+         {      
+             s1.insert(ch);
+             ch++;
+         }
+         for(int i=0;i<n;i++)
+         {
+             if(s1.find(sentence[i])!=s1.end())
+             {
+                 s1.erase(sentence[i]);
+             }
+             if(s1.size()==0)
+                 return true;
+         }
+    return false;
+    }
+};
