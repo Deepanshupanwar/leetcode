@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int ans=0;
+    bool is_unique(string s)
+    {
+        int n=s.size();
+        vector<int> freq(26,0);
+        for(int i=0;i<n;i++)
+        {
+            freq[s[i]-'a']++;
+            if(freq[s[i]-'a']>1)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    void help(vector<string>& arr,int i,int n,string curr)
+    {
+        if(!is_unique(curr))
+        {
+            return ;
+        }
+        if(i==n)
+        {
+            int c=curr.size();
+            ans= max(c,ans);
+            return ;
+        }
+        help(arr,i+1,n,curr+arr[i]);
+        help(arr,i+1,n,curr);
+        return ;
+    }
+    int maxLength(vector<string>& arr) {
+        help(arr,0,arr.size(),"");
+        return ans;
+    }
+};
