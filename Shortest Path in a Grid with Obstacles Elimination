@@ -1,0 +1,42 @@
+class Solution {
+public:
+     const int dx[4] = { -1, 0, 0, 1 }, dy[4] = { 0, -1, 1, 0 };
+    int bfs(vector<vector<int>>& grid,vector<vector<int>>& vis,int n,int m,queue<array<int,3>> q)
+    {
+        int ans=0;
+        while(!q.empty())
+        {
+            int size=q.size();
+            while(size>0)
+            {
+              auto curr=q.front();
+              q.pop();
+              if(curr[0]==n-1&&curr[1]==m-1)
+                  return ans;
+              for(int i=0;i<4;i++)
+              {
+                  int x=curr[0]+dx[i],y=curr[1]+dy[i];
+                  if(x < 0 || x>= n || y < 0 || y >= m) continue;
+                  int rem=curr[2]-grid[x][y];
+                  if(rem>=0&&vis[x][y] < rem)
+                  {
+                      q.push({x,y,rem});
+                      vis[x][y]=rem;
+                  }
+              }
+                size--;
+            }
+            ans++;
+        }
+        return -1;
+    }
+    int shortestPath(vector<vector<int>>& grid, int k) {
+      int n=grid.size();
+      int m=grid[0].size();
+      vector<vector<int>> vis(n,vector<int>(m,-1));
+      queue<array<int,3>> q;
+      q.push({0,0,k});
+      vis[0][0]=k;
+      return bfs(grid,vis,n,m,q);  
+    }
+};
