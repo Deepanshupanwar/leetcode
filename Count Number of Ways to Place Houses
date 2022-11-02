@@ -1,0 +1,20 @@
+class Solution {
+public:
+    long long mod=1e9+7;
+    long help(int n,vector<int>& dp)
+    {
+        if(n<0)
+            return 1;
+        if(dp[n]!=-1)
+            return dp[n];
+       int l=help(n-2,dp);
+       int r=help(n-1,dp);
+        return dp[n]=(l+r)%mod;
+    }
+    int countHousePlacements(int n) {
+        vector<int> dp(n,-1);
+        long ans=help(n-1,dp);
+        ans=(ans*ans)%mod;
+        return ans;
+    }
+};
