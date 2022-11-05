@@ -1,0 +1,57 @@
+class Solution {
+public:
+    bool dfs(int i,int j,int curr,string str,vector<vector<char>> board)
+    {
+        board[i][j]='$';
+      //  cout<<i<<" "<<j<<endl;
+        if(curr==str.size()-1)
+          return true;
+        if(j>0&&board[i][j-1]==str[curr+1])
+        {
+            if(dfs(i,j-1,curr+1,str,board))
+             return true;
+        }
+        if(j<board[0].size()-1&&board[i][j+1]==str[curr+1])
+        {
+            if(dfs(i,j+1,curr+1,str,board))
+             return true;
+        }
+        if(i>0&&board[i-1][j]==str[curr+1])
+        {
+            if(dfs(i-1,j,curr+1,str,board))
+              return true;
+        }
+        if(i<board.size()-1&&board[i+1][j]==str[curr+1])
+        {
+            if(dfs(i+1,j,curr+1,str,board))
+              return true;
+        }
+        return false;
+    }
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+     map<char,vector<pair<int,int>>> m;
+     vector<string> ans;
+     for(int i=0;i<board.size();i++)
+     {
+         for(int j=0;j<board[0].size();j++)
+         {
+             m[board[i][j]].push_back({i,j});
+         }
+     }
+     for(int i=0;i<words.size();i++)
+     {
+         string str=words[i];
+         auto arr=m[str[0]];
+         for(int j=0;j<arr.size();j++)
+         {
+            // cout<<arr[j].first<<" "<<arr[j].second<<endl;
+             if(dfs(arr[j].first,arr[j].second,0,str,board))
+             {
+                 ans.push_back(str);
+                 break;
+             }
+         }
+     }   
+     return ans;
+    }
+};
