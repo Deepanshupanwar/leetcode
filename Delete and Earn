@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int help(vector<int>& nums,int i,vector<int>& dp)
+    {
+        if(i>=nums.size())
+           return 0;
+        if(dp[i]!=-1)
+          return dp[i];
+        int curr=nums[i];
+        int sum=nums[i];
+        int index=i+1;
+        while(index<nums.size()&&curr==nums[index])
+        {
+            sum+=nums[index++];
+        }
+        while(index<nums.size()&&curr+1==nums[index])
+        {
+            index++;
+        }
+        return dp[i]=max(sum+help(nums,index,dp),help(nums,i+1,dp));
+    }
+    int deleteAndEarn(vector<int>& nums) {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        vector<int> dp(n,-1);
+        return help(nums,0,dp);
+    }
+};
