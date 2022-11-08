@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+    int n=nums.size();
+     vector<int>  vis(n,-1);
+     int i=0;
+     while(i<n-1)
+     {
+         if(i==-1)
+           return false;
+         cout<<i<<endl;
+         vis[i]=1;
+         int temp=i+nums[i];
+         if(temp>=n-1)
+          return true;
+         while(nums[temp]==0||vis[temp]==1)
+         {
+             temp--;
+             if(temp==-1)
+                return false;
+         }
+         i=temp;
+     }
+     return true;
+    }
+};
