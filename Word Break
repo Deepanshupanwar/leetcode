@@ -1,0 +1,37 @@
+class Solution {
+public:
+    unordered_map<string,int> dp;
+    int help(string s,vector<string>& wordDict)
+    {
+        int n=s.size();
+        if(n==0)
+            return 1;
+        if(dp[s]!=0)
+           return dp[s];
+
+        for(int i=1;i<=n;i++)
+        {
+            int f=0;
+            string str=s.substr(0,i);
+            for(int j=0;j<wordDict.size();j++)
+            {
+                if(str.compare(wordDict[j])==0)
+                {
+                    f=1;
+                    break;
+                }
+            }
+            if(f==1 && help(s.substr(i,n-i),wordDict)==1)
+            {
+                return dp[s]=1;
+            }
+        }
+        return dp[s] = -1;
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        int ans=help(s,wordDict);
+        if(ans==1)
+            return true;
+        return false;
+    }
+};
