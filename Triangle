@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int help(vector<vector<int>>& matrix,int row,int col,vector<vector<int>>& dp)
+    {
+        int n=matrix.size();
+        if(row==n)
+        return 0;
+        if(dp[row][col]!=-1)
+            return dp[row][col];
+        int b=INT_MAX,c=INT_MAX;
+        if(row<n-1&&col<matrix[row+1].size()-1)
+        {
+            b=matrix[row][col]+help(matrix,row+1,col+1,dp);
+        }
+        c=matrix[row][col]+help(matrix,row+1,col,dp);
+        return dp[row][col]= min(b,c);
+    }
+    int minimumTotal(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        vector <vector<int>> dp(n,vector<int> (n,-1));
+        return help(matrix,0,0,dp);
+    } 
+};
