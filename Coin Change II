@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int ans=0;
+    int help(int amount,vector<int>& coins,vector<vector<int>>& dp,int i)
+    {
+        if(i<0||amount<0)
+          return 0;
+        if(amount==0)
+           return 1;
+        if(dp[i][amount]!=-1)
+           return dp[i][amount];
+        return dp[i][amount]=help(amount-coins[i],coins,dp,i)+help(amount,coins,dp,i-1);
+        
+    }
+    int change(int amount, vector<int>& coins) {
+         vector<vector<int>> dp(coins.size(),vector<int>(amount+1,-1));
+        int ans=help(amount,coins,dp,coins.size()-1);
+        return ans;
+    }
+};
