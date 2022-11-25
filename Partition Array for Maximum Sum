@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int help(int i,vector<int>& arr, int k,vector<int>& dp)
+    {
+        if(i>=arr.size())
+         return 0;
+        int ans=0;
+    if(dp[i]!=-1)
+     return dp[i];
+    for(int j=1;j<=k;j++)
+    {
+        if(i+j>arr.size())
+           break;
+        int currmax=*max_element(arr.begin()+i,arr.begin()+i+j);
+        int a;
+        currmax*=j;
+        a=currmax+help(i+j,arr,k,dp);
+        ans=max(ans,a);
+    }
+    return dp[i]=ans;
+    }
+    int maxSumAfterPartitioning(vector<int>& arr, int k) {
+        vector<int> dp(arr.size(),-1);
+        return help(0,arr,k,dp);
+    } 
+};
