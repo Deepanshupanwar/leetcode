@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int twoEggDrop(int n) {
+        if(n==1)
+          return 1;
+        vector<int> bests(n + 1);
+        
+        vector<int> oneRow(n + 1);
+        vector<vector<int>> dp(n + 1, oneRow);
+        
+        dp[1][1] = 1;
+        dp[1][2] = 2; 
+        dp[2][2] = 2;
+        
+        bests[0] = 0;
+        bests[1] = 1;
+        bests[2] = 2;
+        
+        for (int col = 3; col <= n; ++col) {
+            int bestThisCol = n; 
+            for (int row = 1; row <= col; ++row) { 
+                int breaks = 1 + row - 1;
+                int survive = 1 + bests[col - row];
+                dp[row][col] = max(breaks, survive);
+                bestThisCol = min(bestThisCol, dp[row][col]);
+            }
+            bests[col] = bestThisCol;
+        }
+        
+        return bests[n];
+    }
+};
