@@ -1,0 +1,36 @@
+class Solution {
+public:
+    static bool comp(pair<int,int> a,pair<int,int> b)
+    {
+        if(a.second==b.second)
+            return a.first<b.first;
+        return a.second<b.second;
+    }
+    int help(int n,unordered_map<int,int> &dp)
+    {
+        if(n==4)
+            return 2;
+        if(n==2)
+            return 1;
+        if(n==1)
+            return 0;
+        if(dp.find(n)!=dp.end())
+            return dp[n];
+        if(n%2==0)
+            return dp[n]=1+help(n/2,dp);
+        return dp[n]=1+help(n*3+1,dp);
+    }
+    int getKth(int lo, int hi, int k) {
+    unordered_map<int,int> dp;
+    dp[4]=2;
+    dp[2]=1;
+    dp[1]=0;
+    vector<pair<int,int>> temp;
+    for(int i=lo;i<=hi;i++)
+    {
+        temp.push_back({i,help(i,dp)});
+    }
+    sort(temp.begin(),temp.end(),comp);
+    return temp[k-1].first;
+    }
+};
