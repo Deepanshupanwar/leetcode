@@ -1,0 +1,57 @@
+class Solution {
+public:
+    int ans=0;
+    void dfs(vector<vector<int>>& grid,int i,int j,int end_i,int end_j,vector<vector<int>> &vis,int total_empty,int curr)
+    {
+        if(i<0 || i>=grid.size() || j<0 || j>=grid[0].size())
+        {
+            return;
+        }
+        if(i==end_i && j==end_j)
+        {
+            if(curr==total_empty+1)
+            {
+                ans++;
+                return ;
+            }
+            else
+            {
+                return ;
+            }
+        }
+        if(grid[i][j]==-1||vis[i][j]==1)
+           return ;
+        vis[i][j]=1;
+        dfs(grid,i+1,j,end_i,end_j,vis,total_empty,curr+1);
+        dfs(grid,i,j+1,end_i,end_j,vis,total_empty,curr+1); 
+        dfs(grid,i-1,j,end_i,end_j,vis,total_empty,curr+1);
+        dfs(grid,i,j-1,end_i,end_j,vis,total_empty,curr+1);
+        vis[i][j]=0;
+    }
+    int uniquePathsIII(vector<vector<int>>& grid) {
+       int total_empty=0,start_i,start_j,end_i,end_j;
+       for(int i=0;i<grid.size();i++)
+       {
+           for(int j=0;j<grid[0].size();j++)
+           {
+               if(grid[i][j]==1)
+               {
+                   start_i=i;
+                   start_j=j;
+               }
+               if(grid[i][j]==2)
+               {
+                   end_i=i;
+                   end_j=j;
+               }
+               if(grid[i][j]==0)
+               {
+                   total_empty++;
+               }
+           }
+       }
+       vector<vector<int>> vis(grid.size(),vector<int>(grid[0].size(),0));
+       dfs(grid,start_i,start_j,end_i,end_j,vis,total_empty,0);
+       return ans;
+    }
+};
