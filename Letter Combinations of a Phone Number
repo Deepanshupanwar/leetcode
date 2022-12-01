@@ -1,0 +1,37 @@
+class Solution {
+public:
+     unordered_map<char,vector<string>> m;
+    void help(string s,int i,string curr,vector<string>& ans)
+    {
+        if(curr.size()==s.size())
+        {
+            ans.push_back(curr);
+            return ;
+        }
+        auto arr=m[s[i]];
+        help(s,i+1,curr+arr[0],ans);
+        help(s,i+1,curr+arr[1],ans);
+        help(s,i+1,curr+arr[2],ans);
+        if(s[i]=='7'||s[i]=='9')
+            help(s,i+1,curr+arr[3],ans);
+        return ;
+    }
+    vector<string> letterCombinations(string digits) {
+        if(digits.size()==0)
+        {
+            return {};
+        }
+        m['2']={"a","b","c"};
+        m['3']={"d","e","f"};
+        m['4']={"g","h","i"};
+        m['5']={"j","k","l"};
+        m['6']={"m","n","o"};
+        m['7']={"p","q","r","s"};
+        m['8']={"t","u","v"};
+        m['9']={"w","x","y","z"};
+        vector <string> ans;
+        help(digits,0,"",ans);
+        return ans;
+
+    }
+};
