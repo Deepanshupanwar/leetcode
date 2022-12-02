@@ -1,0 +1,46 @@
+class Solution {
+public:
+    void heapify(vector<int>& arr,int i,int n)
+    {
+        int maxi=i;
+        int child1=2*i+1;
+        int child2=2*i+2;
+        if(child1<n&&arr[child1]>arr[maxi])
+        {
+            maxi=child1;
+        }
+        if(child2<n&&arr[child2]>arr[maxi])
+        {
+            maxi=child2;
+        }
+        if(maxi!=i)
+        {
+            swap(arr[i],arr[maxi]);
+            heapify(arr,maxi,n);
+        }
+    }
+    void create_heap(vector<int> & arr,int n)
+    {
+        for(int i=n/2;i>=0;i--)
+        {
+          heapify(arr,i,n);
+        }
+    }
+    int pop_max(vector<int> &arr,int n)
+    {
+        cout<<arr[0]<<endl;
+        swap(arr[0],arr[n-1]);
+        arr.pop_back();
+        heapify(arr,0,n-1);
+        return n-1;
+    }
+    int findKthLargest(vector<int>& nums, int k) {
+        create_heap(nums,nums.size());
+        int n=nums.size();
+        for(int i=1;i<k;i++)
+        {
+            n=pop_max(nums,n);
+        }
+        return nums[0];
+    }
+};
