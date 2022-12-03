@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool binary(vector<int>arr,int t)
+    {
+        int i=0;
+        int end=arr.size()-1;
+        while(i<=end)
+        {
+            int mid=(end+i)/2;
+            if(arr[mid]==t)
+            {
+                return true;
+            }
+            else if(arr[mid]>t)
+            {
+                end=mid-1;
+            }
+            else
+            {
+                i=mid+1;
+            }
+        }
+        return false;
+    }
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        for(int i=0;i<matrix.size();i++)
+        {
+            vector<int> temp=matrix[i];
+            if(binary(temp,target))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+};
