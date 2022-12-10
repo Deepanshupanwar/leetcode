@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
+        unordered_map<int,int> m;
+        int xo=0;
+        for(int i=0;i<arr.size();i++)
+        {
+            xo^=arr[i];
+            m[i]=xo;
+        }
+        vector<int> ans;
+        for(int i=0;i<queries.size();i++)
+        {
+            if(queries[i][0]==0)
+            {
+                ans.push_back(m[queries[i][1]]);
+            }
+            else
+            {
+                ans.push_back(m[queries[i][0]-1]^m[queries[i][1]]);
+            }
+        }
+        return ans;
+    }
+};
