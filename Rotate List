@@ -10,43 +10,33 @@
  */
 class Solution {
 public:
-    int callen(ListNode * head,vector<int>&nums)
-    {
-        int len=0;
-        while(head!=NULL)
-        {
-            len++;
-            nums.push_back(head->val);
-            head=head->next;
-        }
-        return len;
-    }
     ListNode* rotateRight(ListNode* head, int k) {
         ListNode* temp=head;
-        vector<int> nums;
-        int len=callen(temp,nums);
-        if(len==0||k%len==0)
+        //vector<int> nums;
+        if(head==NULL)
+          return head;
+        int len=1;
+        while(temp->next!=NULL)
+        {
+            len++;
+            temp=temp->next;
+        }
+        if(k%len==0)
         {
          return head;
         }
         else
         {
-            int j=k%len;
-            int i=k%len;
-            while(i)
-            {
-                head->val=nums[len-i];
-                i--;
-                head=head->next;
-            }
-            i=0;
-            while(i<len-j)
-            {
-                head->val=nums[i];
-                head=head->next;
-                i++;
-            }
+          temp->next=head;
+          k=k%len;
+          int i=len-k;
+          while(i--)
+          {
+              temp=temp->next;
+          }
+          head=temp->next;
+          temp->next=NULL;
         }
-        return temp;
+        return head;
     }
 };
