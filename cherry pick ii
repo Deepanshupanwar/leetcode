@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int help(int n,int m,int i,int r1,int r2,vector<vector<int>>& grid,vector<vector<vector<int>>>& dp)
+    {
+        if(i==n)
+            return 0;
+        if(r1==r2)
+        {
+            return -1000000;
+        }
+        if(dp[i][r1][r2]!=-1)
+            return dp[i][r1][r2];
+        int ans=0;
+        for(int j=-1;j<=1;j++)
+        {
+            for(int k=-1;k<=1;k++)
+            {
+                if((k+r2)>=0&&(k+r2)<m&&(j+r1)>=0&&(j+r1)<m)
+                {
+                    ans=max(ans,grid[i][r1]+grid[i][r2]+help(n,m,i+1,j+r1,k+r2,grid,dp));
+                }
+            }
+        }
+        return dp[i][r1][r2]=ans;
+    }
+    int cherryPickup(vector<vector<int>>& grid) {
+       int n=grid.size();
+       int m=grid[0].size(); 
+       vector<vector<vector<int>>> dp(n,vector(m,vector(m,-1)));
+       return help(n,m,0,0,m-1,grid,dp);
+    }
+};
