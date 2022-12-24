@@ -1,0 +1,21 @@
+class Solution {
+public:
+  /*  int help(bool turn,int i,int n,vector<int>& piles,vector<vector<int>>& dp)
+    {
+        if(i>n)
+            return 0;
+        if(dp[i][n]!=-1)
+            return dp[i][n];
+        if(turn)
+            dp[i][n]=max(piles[i]+help(!turn,i+1,n,piles,dp),piles[n]+help(!turn,i,n-1,piles,dp));
+        else
+            dp[i][n]=max(-piles[i]+help(!turn,i+1,n,piles,dp),-piles[n]+help(!turn,i,n-1,piles,dp));
+        return dp[i][n];
+    }*/
+    bool stoneGame(vector<int>& piles) {
+      /*  int n=piles.size();
+        vector<vector<int>> dp(n,vector<int>(n,-1));
+        return help(true,0,n-1,piles,dp)>0;*/
+        return true;
+    }
+};
